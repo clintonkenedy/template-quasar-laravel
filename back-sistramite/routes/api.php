@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FolioController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\UbigeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +24,8 @@ use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 //     return $request->user();
 // });
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    $roles=$request->user()->roles;
-    $permisos=[];
+    $roles = $request->user()->roles;
+    $permisos = [];
     foreach ($roles as $rol) {
 
         # code...
@@ -34,9 +38,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return response()->json([
         'user' => $request->user(),
         // 'rolesSelected' => $request->user()->roles,
-        'permisos'=>$permisos,
+        'permisos' => $permisos,
         'roles' => $request->user()->roles->pluck('name'),
     ]);
 });
 
-Route::apiResource('/folios',FolioController::class)->middleware([HandlePrecognitiveRequests::class]);
+Route::get('ubigeo', [UbigeoController::class, 'getUbigeo']);
+Route::get('departamentos', [UbigeoController::class, 'getDepartamentos']);
+Route::get('provincias', [UbigeoController::class, 'getProvincias']);
+Route::get('distritos', [UbigeoController::class, 'getDistritos']);
+
+Route::apiResource('/folios', FolioController::class)->middleware([HandlePrecognitiveRequests::class]);
+Route::apiResource('/usuarios', UserController::class)->middleware([HandlePrecognitiveRequests::class]);
+Route::apiResource('/roles', RoleController::class)->middleware([HandlePrecognitiveRequests::class]);
+Route::apiResource('/permisos', PermisoController::class)->middleware([HandlePrecognitiveRequests::class]);
+

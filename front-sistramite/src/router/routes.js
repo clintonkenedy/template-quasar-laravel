@@ -26,12 +26,12 @@ const routes = [
       {
         path: "permisos",
         name: "Permisos",
-        // component: () => import("pages/Admin/Usuarios/UsuariosList.vue"),
+        component: () => import("pages/Admin/Permisos/PermisosList.vue"),
       },
       {
         path: "roles",
         name: "Roles",
-        // component: () => import("pages/Tramites/TramitesForm.vue"),
+        component: () => import("pages/Admin/Roles/RolesList.vue"),
       },
       {
         path: "usuarios",

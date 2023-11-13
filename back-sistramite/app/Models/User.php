@@ -25,10 +25,12 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-    public function validateForPassportPasswordGrant($password)
-    {
-        return Hash::check($password, $this->password);
-    }
+    protected $guard_name = 'api';
+
+    // public function validateForPassportPasswordGrant($password)
+    // {
+    //     return Hash::check($password, $this->password);
+    // }
     /**
      * The attributes that should be hidden for serialization.
      *
